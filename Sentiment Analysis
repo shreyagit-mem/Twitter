@@ -3,10 +3,10 @@ from textblob import TextBlob
 import matplotlib.pyplot as plt
 def percentage(part,whole):
     return 100* float(part)/float(whole)
-consumer_key = 'ATfKfmlU88EffYQzIF8SQhiYX'
-consumer_secret = 'dy8ao96WUqEFjEGi7dnIEiAT2Vq6EDDkXPOv0k50DcSr9dnwsz'
-access_token = '180739880-ncdWLjX4vDYfaCh1Foj2dltv6TNOPa31Nxb4zvXy'
-access_token_secret = '3vevh5nD8Z6IXlHn2XcrD7pnxtMVTZRbwu49rPLVRNW1n'
+consumer_key = 'YOUR CONSUMER KEY'
+consumer_secret = 'YOUR CONSUMER SECRET'
+access_token = 'YOUR ACCESS TOKEN'
+access_token_secret = 'YOUR ACCESS TOKEN SECRET'
 auth=tweepy.OAuthHandler(consumer_key,consumer_secret)
 auth.set_access_token(access_token,access_token_secret)
 api=tweepy.API(auth)
