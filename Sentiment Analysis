@@ -1,0 +1,41 @@
+import tweepy
+from textblob import TextBlob
+import matplotlib.pyplot as plt
+def percentage(part,whole):
+    return 100* float(part)/float(whole)
+consumer_key = 'ATfKfmlU88EffYQzIF8SQhiYX'
+consumer_secret = 'dy8ao96WUqEFjEGi7dnIEiAT2Vq6EDDkXPOv0k50DcSr9dnwsz'
+access_token = '180739880-ncdWLjX4vDYfaCh1Foj2dltv6TNOPa31Nxb4zvXy'
+access_token_secret = '3vevh5nD8Z6IXlHn2XcrD7pnxtMVTZRbwu49rPLVRNW1n'
+auth=tweepy.OAuthHandler(consumer_key,consumer_secret)
+auth.set_access_token(access_token,access_token_secret)
+api=tweepy.API(auth)
+search=input('Enter tag to be searched')
+terms=int(input('Enter the no. of tweets to be searched'))
+tweets=tweepy.Cursor(api.search,q=search).items(terms)
+positive=0
+negative=0
+neutral=0
+polarity=0
+for tweet in tweets:
+    print(tweet.text)
+    
+    analysis=TextBlob(tweet.text)
+    polarity+=analysis.sentiment.polarity
+    if(analysis.sentiment.polarity==0):
+        neutral+=1
+    elif(analysis.sentiment.polarity<0.00):
+        negative+=1
+    elif(analysis.sentiment.polarity>0.00):
+        positive+=1
+positive=percentage(positive,terms)
+negative=percentage(negative,terms)
+neutral=percentage(neutral,terms)
+labels=['positive['+str(positive)+'%]','negative['+str(negative)+'%]','neutral['+str(neutral)+'%]']
+sizes=[positive,negative,neutral]
+colors=['red','yellow','green']
+patches,text=plt.pie(sizes,colors=colors,startangle=90)
+plt.legend(patches,labels,loc="best")
+plt.title("how people are reacting on"+search+ "by analysing"+str(terms)+"tweets")
+plt.axis('equal')
+plt.tight_layout()
